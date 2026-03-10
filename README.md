@@ -117,6 +117,20 @@ A single quipu represents one user's timeline. A **Quipu Bundle** aggregates mul
 
 In software, a bundle might query "all Grammar ratings across all graders" — producing a unified chronological view where events from different users are interleaved and distinguished by user indicator. Bundles enable inter-rater reliability analysis, cross-cohort quality assurance, and collaborative calibration — all without altering the original per-user event streams.
 
+### 9. The Shared Markov Blanket
+
+In the context of active inference, the Quipu functions as the shared Markov blanket for the interaction. In complex multi-agent systems, information is typically fragmented; the AI has its context window and the human has their dashboard, creating high "variational free energy" (uncertainty) between them.
+
+By forcing every action onto a single linear causal timeline, the Quipu externalizes and synchronizes the internal states of both the human and the agent. The "knots" (events) on the cord serve as the sensory and active states that bound the system. Because both parties perceive and act upon the same "primary cord," their generative models of the task remain coupled, minimizing surprise and ensuring a single record of truth.
+
+### 10. Hierarchical Active Inference via Bundling
+
+The Quipu Architecture facilitates hierarchical active inference through its unique "bunching" and "looping" mechanics. While the primary cord tracks fast-timescale, granular events (sensory/active states), the ability to "bunch" these into pendant cords allows for higher-level abstraction.
+- **Linear Sequence** (Low Level): Provides the raw, chronological sequence of evidence.
+- **Bundles/Loops** (High Level): Represents the "conceptual" or "strategic" level of the hierarchy. "Bunched" cords act as higher-order states that explain the sequences below them.
+
+When a user or agent bundles a set of actions—such as a series of log analyses, search results, and knowledge base lookups—they are essentially performing a message-passing operation in a hierarchical model. This reduces the cognitive load (variational free energy) by allowing the collaborators to focus on high-level intent and outcomes without losing access to the underlying causal evidence.
+
 ---
 
 ## What Quipu Architecture Is Not
