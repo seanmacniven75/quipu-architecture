@@ -6,7 +6,7 @@
 **Affiliation:** Real Teal Labs / Coded for Humans  
 **First Published:** March 2026  
 **License:** MIT  
-**DOI:** *(Zenodo DOI to be assigned upon first release)*
+**DOI:** *10.5281/zenodo.18941708*
 
 ---
 
