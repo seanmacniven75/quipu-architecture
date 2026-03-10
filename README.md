@@ -3,8 +3,8 @@
 
 ### The Universal Chat-Based Workflow Architecture for Agentic AI
 
-**Author:** Dr. Sean MacNiven  
-**Affiliation:** Real Teal Labs / Coded for Humans  
+**Author:** Sean MacNiven  
+**Affiliation:** Glasgow Caledonian Univeristy / Leeds Beckett University / Kings College London / Coded for Humans  
 **First Published:** March 2026  
 **License:** MIT  
 **DOI:** *10.5281/zenodo.18941708*
