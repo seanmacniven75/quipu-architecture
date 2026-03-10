@@ -19,9 +19,9 @@ Every action — whether a human decision, an AI agent's output, or a background
 
 Unlike tabbed interfaces, parallel panel layouts, or branching conversation trees, Quipu Architecture preserves **strict linear causality**. Parallel computations are collapsed into the single event that initiated them. The result is an interface that can be "pulled straight" into a flat chronological sequence, or "bunched" into loops of related action types for focused exploration.
 
-**The core proposition**: In agentic AI applications, the chat is not a feature — it is the entire workflow. Quipu Architecture provides the structural pattern that makes this possible. Importantly, it is also a single record of truth. A quipu for a customer support iteraction, for example, contains everything the support engineer does, every search, every customer interaction, every log file analysed, and the results of those analyses, are all available within the quipu. 
+**The core proposition:** In agentic AI applications, the chat is not a feature — it is the entire workflow. Quipu Architecture provides the structural pattern that makes this possible. Importantly, it is also a single record of truth. 
 
-**The Universal Model**
+**The Universal Model:**
 A case quipu is equivalent to exporting a universal model of the entire interaction. Every search, every decision, and every insight is captured within the quipu's structure. This makes the quipu not just a log, but a self-evidencing generative model suitable for:
 - RLHF (Reinforcement Learning from Human Feedback): Training agents to navigate the Markov blanket with greater fidelity.
 - Auditability: A clear, linear chain of causality that resists the "black box" nature of traditional AI interfaces.
