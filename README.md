@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18941708.svg)](https://doi.org/10.5281/zenodo.18941708).
 # Quipu Architecture
 
 ### The Universal Chat-Based Workflow Architecture for Agentic AI
