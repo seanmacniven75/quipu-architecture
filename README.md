@@ -13,7 +13,7 @@
 
 ## Abstract
 
-Quipu Architecture is an open UI/interaction design pattern that replaces tabs, panels, and dashboards with **a single conversational timeline**. It is designed for the emerging paradigm of **agentic AI workflows** — applications where humans and AI agents collaborate, delegate, and act in the same workspace.
+Quipu Architecture is an open UI/interaction design pattern that replaces tabs, panels, and dashboards with **a single conversational timeline**. It is designed for the emerging paradigm of **agentic AI workflows** — applications where humans and AI agents collaborate, delegate, and act in the same workspace. No existing UI architecture lets the interface grow its own navigation as new types of actions occur, shows you what's hidden when you filter instead of silently removing it, lets you combine filters into reusable stories across action types, and places human and AI agent actions on a single linear timeline — all without tabs, panels, or branching. Quipu is designed by and for homo narrans, for at our core, humans are storytellers, and reality is processed as narrative.
 
 Every action — whether a human decision, an AI agent's output, or a background system event — is logged as an event on a **single linear causal timeline** (the *primary cord*). Events are tagged by action type and form **pendant cords** — dynamic, filterable groupings that can be isolated, inspected, and navigated without leaving the timeline. The architecture is inspired by the Incan *quipu* (khipu): a knotted-cord record-keeping system in which a single horizontal primary cord carries pendant cords bearing knots that encode information through their type, position, colour, and material.
 
@@ -26,9 +26,6 @@ A case quipu is equivalent to exporting a universal model of the entire interact
 - RLHF (Reinforcement Learning from Human Feedback): Training agents to navigate the Markov blanket with greater fidelity.
 - Auditability: A clear, linear chain of causality that resists the "black box" nature of traditional AI interfaces.
 - Insight Generation: Using "quipu bundles" to analyze complex case patterns across thousands of interactions.
-
-**What makes Quipu novel?**
-No existing UI architecture lets the interface grow its own navigation as new types of actions occur, shows you what's hidden when you filter instead of silently removing it, lets you combine filters into reusable stories across action types, and places human and AI agent actions on a single linear timeline — all without tabs, panels, or branching. Quipus are designed aorund how people work, in narratives. Quipu is designed by and for homo narrans.
 
 ---
 
