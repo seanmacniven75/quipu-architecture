@@ -28,7 +28,7 @@ A case quipu is equivalent to exporting a universal model of the entire interact
 - Insight Generation: Using "quipu bundles" to analyze complex case patterns across thousands of interactions.
 
 **What makes Quipu novel?**
-No existing UI architecture lets the interface grow its own navigation as new types of actions occur, shows you what's hidden when you filter instead of silently removing it, lets you combine filters into reusable stories across action types, and places human and AI agent actions on a single linear timeline — all without tabs, panels, or branching.
+No existing UI architecture lets the interface grow its own navigation as new types of actions occur, shows you what's hidden when you filter instead of silently removing it, lets you combine filters into reusable stories across action types, and places human and AI agent actions on a single linear timeline — all without tabs, panels, or branching. Quipus are designed aorund how people work, in narratives. Quipu is designed by and for homo narrans.
 
 ---
 
