@@ -27,6 +27,9 @@ A case quipu is equivalent to exporting a universal model of the entire interact
 - Auditability: A clear, linear chain of causality that resists the "black box" nature of traditional AI interfaces.
 - Insight Generation: Using "quipu bundles" to analyze complex case patterns across thousands of interactions.
 
+**What makes Quipu novel?**
+No existing UI architecture lets the interface grow its own navigation as new types of actions occur, shows you what's hidden when you filter instead of silently removing it, lets you combine filters into reusable stories across action types, and places human and AI agent actions on a single linear timeline — all without tabs, panels, or branching.
+
 ---
 
 ## Why Agentic AI Needs a New UI Paradigm
