@@ -1,0 +1,118 @@
+{
+  "events": [
+    {
+      "id": "ev-001",
+      "timestamp": "2026-04-15T08:02:00Z",
+      "type": "ticket.created",
+      "initiatedBy": "user",
+      "actor": "foo.bar@strandholdings.example",
+      "payload": {
+        "ticketId": "SH-IT-104221",
+        "priority": "normal",
+        "subject": "Marketing floor printer offline"
+      },
+      "entityRefs": ["ticket:SH-IT-104221", "customer:foo-bar"]
+    },
+    {
+      "id": "ev-002",
+      "timestamp": "2026-04-15T08:03:30Z",
+      "type": "ticket.assigned",
+      "initiatedBy": "system",
+      "actor": "dispatch-bot",
+      "payload": {
+        "ticketId": "SH-IT-104221",
+        "assignee": "john.public@strandholdings.example",
+        "queue": "it-support-tier1"
+      },
+      "entityRefs": ["ticket:SH-IT-104221", "agent:john-public"]
+    },
+    {
+      "id": "ev-003",
+      "timestamp": "2026-04-15T08:11:42Z",
+      "type": "agent.responded",
+      "initiatedBy": "user",
+      "actor": "john.public@strandholdings.example",
+      "payload": {
+        "ticketId": "SH-IT-104221",
+        "message": "Please confirm printer model and floor cabinet ID."
+      },
+      "entityRefs": ["ticket:SH-IT-104221", "agent:john-public"]
+    },
+    {
+      "id": "ev-004",
+      "timestamp": "2026-04-15T08:14:09Z",
+      "type": "customer.replied",
+      "initiatedBy": "user",
+      "actor": "foo.bar@strandholdings.example",
+      "payload": {
+        "ticketId": "SH-IT-104221",
+        "message": "Model LX-420, cabinet MKT-03."
+      },
+      "entityRefs": ["ticket:SH-IT-104221", "customer:foo-bar"]
+    },
+    {
+      "id": "ev-005",
+      "timestamp": "2026-04-15T08:20:31Z",
+      "type": "sla.warning",
+      "initiatedBy": "agent",
+      "actor": "ops-observer-agent",
+      "payload": {
+        "ticketId": "SH-IT-104221",
+        "risk": "response-time",
+        "minutesToBreach": 11
+      },
+      "entityRefs": ["ticket:SH-IT-104221"]
+    },
+    {
+      "id": "ev-006",
+      "timestamp": "2026-04-15T08:22:03Z",
+      "type": "escalation.started",
+      "initiatedBy": "user",
+      "actor": "jane.roe@strandholdings.example",
+      "payload": {
+        "ticketId": "SH-IT-104221",
+        "toQueue": "network-and-peripherals",
+        "reason": "repeat incident in quarter"
+      },
+      "entityRefs": ["ticket:SH-IT-104221", "team:network"]
+    },
+    {
+      "id": "ev-007",
+      "timestamp": "2026-04-15T08:35:47Z",
+      "type": "incident.linked",
+      "initiatedBy": "system",
+      "actor": "incident-service",
+      "payload": {
+        "ticketId": "SH-IT-104221",
+        "incidentId": "INC-7781",
+        "summary": "Switch port flap on MKT floor"
+      },
+      "entityRefs": ["ticket:SH-IT-104221", "incident:INC-7781"]
+    },
+    {
+      "id": "ev-008",
+      "timestamp": "2026-04-15T08:42:21Z",
+      "type": "escalation.resolved",
+      "initiatedBy": "user",
+      "actor": "mary.major@strandholdings.example",
+      "payload": {
+        "ticketId": "SH-IT-104221",
+        "resolution": "Switch port reset and firmware patch"
+      },
+      "entityRefs": ["ticket:SH-IT-104221", "incident:INC-7781"]
+    },
+    {
+      "id": "ev-009",
+      "timestamp": "2026-04-15T08:45:19Z",
+      "type": "status.changed",
+      "initiatedBy": "system",
+      "actor": "ticketing-system",
+      "payload": {
+        "ticketId": "SH-IT-104221",
+        "from": "in_progress",
+        "to": "resolved"
+      },
+      "entityRefs": ["ticket:SH-IT-104221"]
+    }
+  ]
+}
