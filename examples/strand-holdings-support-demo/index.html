@@ -3,50 +3,72 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Strand Holdings IT Support Console</title>
+    <title>Strand Holdings Support Assistant</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <header class="topbar">
-      <div>
-        <h1>Strand Holdings IT Support Console</h1>
-        <p class="subtitle">Quipu-style event timeline for support operations</p>
-      </div>
-      <div class="badge">Demo / Fictional Data</div>
-    </header>
+    <main class="stage">
+      <section class="phone-shell">
+        <header class="app-bar">
+          <div class="brand">
+            <span class="brand-mark"></span>
+            <span>Strand xRead - Support Assistant</span>
+          </div>
+          <div class="app-actions">Demo</div>
+        </header>
 
-    <main class="layout">
-      <aside class="panel left-panel">
-        <h2>Pendant Filters</h2>
-        <p class="hint">New event types appear here automatically.</p>
-        <div id="filters" class="filters"></div>
-
-        <h2>Saved Narratives</h2>
-        <div id="narratives" class="narratives"></div>
-      </aside>
-
-      <section class="panel center-panel">
-        <div class="toolbar">
-          <button id="clearFilters">Clear Filters</button>
-          <button id="saveNarrative">Save Narrative</button>
+        <div class="top-tabs">
+          <button class="tab active">xRead</button>
+          <button class="tab">My xRead</button>
         </div>
-        <h2>Primary Cord Timeline</h2>
-        <div id="timeline" class="timeline"></div>
+
+        <section class="chat-header">
+          <h1>Chat with Strand Support AI</h1>
+          <p>Strictly limited to this ticket and support workflow</p>
+        </section>
+
+        <section class="views">
+          <div class="views-head">
+            <span>VIEWS</span>
+            <button id="clearFilters" class="ghost-btn">Clear</button>
+            <button id="saveNarrative" class="ghost-btn">Save</button>
+          </div>
+          <div id="filters" class="filters"></div>
+          <div id="narratives" class="narratives"></div>
+        </section>
+
+        <section class="timeline-wrap">
+          <div class="cord"></div>
+          <div id="timeline" class="timeline"></div>
+        </section>
+
+        <section class="action-strip">
+          <span class="strip-label">ACTIONS</span>
+          <div class="action-buttons">
+            <button class="pill-btn">Show Escalations</button>
+            <button class="pill-btn">SLA Risk</button>
+            <button class="pill-btn">Find Similar Incidents</button>
+          </div>
+        </section>
+
+        <section id="detail" class="detail-panel">
+          <p>Select an event to see detail.</p>
+        </section>
+
+        <section class="input-box">
+          <div class="apply-chip">Applying to: Full Ticket Thread</div>
+          <div class="composer">
+            <input type="text" placeholder="Ask Strand Support AI about this ticket..." />
+            <button class="send-btn" type="button">Send</button>
+          </div>
+        </section>
+
+        <footer class="footnote">
+          Strand Holdings is a fictional company used in Quipu Architecture demos.
+          Any resemblance to real companies, persons, or events is incidental.
+        </footer>
       </section>
-
-      <aside class="panel right-panel">
-        <h2>Event Detail</h2>
-        <div id="detail" class="detail">
-          <p>Select an event in the timeline.</p>
-        </div>
-      </aside>
     </main>
-
-    <footer>
-      Strand Holdings is a fictional company used in Quipu Architecture demos.
-      Any resemblance to real companies, persons, or events is incidental.
-    </footer>
-
     <script src="./app.js" defer></script>
   </body>
 </html>

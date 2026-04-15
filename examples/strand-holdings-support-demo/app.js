@@ -124,13 +124,13 @@ function renderTimeline() {
 function renderDetail() {
   const ev = events.find((e) => e.id === activeEventId);
   if (!ev) {
-    detailEl.innerHTML = "<p>Select an event in the timeline.</p>";
+    detailEl.innerHTML = "<p>Select an event to see detail.</p>";
     return;
   }
 
   detailEl.innerHTML = `
-    <strong>${ev.type}</strong>
-    <p>${fmt.format(new Date(ev.timestamp))}</p>
+    <strong>${ev.type}</strong><br />
+    <span>${fmt.format(new Date(ev.timestamp))}</span>
     <pre>${JSON.stringify(ev, null, 2)}</pre>
   `;
 }
