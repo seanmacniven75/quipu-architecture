@@ -10,6 +10,7 @@ const actionButtons = document.querySelectorAll(".pill-btn");
 
 const selectedTypes = new Set();
 const narratives = [];
+const discoveredTypes = new Set();
 let events = [];
 let activeEventId = null;
 let liveCounter = 1;
@@ -31,20 +32,18 @@ function loadEvents() {
 }
 
 function discoverPendantTypes() {
-  const seen = new Set();
-  const discovered = [];
-  for (const ev of events) {
-    if (!seen.has(ev.type)) {
-      seen.add(ev.type);
-      discovered.push(ev.type);
-    }
-  }
-  return discovered;
+  return [...discoveredTypes];
 }
 
 function renderFilters() {
   filtersEl.innerHTML = "";
-  for (const type of discoverPendantTypes()) {
+  const types = discoverPendantTypes();
+  if (types.length === 0) {
+    filtersEl.innerHTML = "<p class='hint'>No views yet. Trigger an action or send a message to discover one.</p>";
+    return;
+  }
+
+  for (const type of types) {
     const chip = document.createElement("button");
     chip.className = `chip ${selectedTypes.has(type) ? "active" : ""}`;
     chip.textContent = type;
@@ -172,6 +171,9 @@ function renderAll() {
 }
 
 function appendEvent(type, initiatedBy, actor, payload, entityRefs = ["ticket:SH-IT-104221"]) {
+  const isNewType = !discoveredTypes.has(type);
+  if (isNewType) discoveredTypes.add(type);
+
   const event = {
     id: `ev-live-${liveCounter++}`,
     timestamp: new Date().toISOString(),
@@ -186,6 +188,15 @@ function appendEvent(type, initiatedBy, actor, payload, entityRefs = ["ticket:SH
   events.sort(byTime);
   activeEventId = event.id;
   renderAll();
+
+  if (isNewType) {
+    const chips = [...filtersEl.querySelectorAll(".chip")];
+    const newChip = chips.find((chip) => chip.textContent === type);
+    if (newChip) {
+      newChip.classList.add("new");
+      setTimeout(() => newChip.classList.remove("new"), 1400);
+    }
+  }
 }
 
 clearFiltersBtn.onclick = () => {
@@ -240,4 +251,9 @@ composerInput.addEventListener("keydown", (event) => {
   }
 });
 
-loadEvents().then(renderAll);
+loadEvents().then(() => {
+  // Seed timeline history but intentionally keep view discovery empty
+  // until the user performs actions in the demo.
+  activeEventId = events[events.length - 1]?.id ?? null;
+  renderAll();
+});

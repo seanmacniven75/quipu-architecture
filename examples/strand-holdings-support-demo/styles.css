@@ -153,6 +153,23 @@ body {
   color: var(--teal-deep);
 }
 
+.chip.new {
+  animation: chip-pop 0.6s ease;
+}
+
+@keyframes chip-pop {
+  0% {
+    transform: scale(0.9);
+    background: #dff7f7;
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .narratives {
   margin-top: 8px;
 }
