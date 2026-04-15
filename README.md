@@ -126,10 +126,28 @@ By forcing every action onto a single linear causal timeline, the Quipu external
 ### 10. Hierarchical Active Inference via Bundling
 
 The Quipu Architecture facilitates hierarchical active inference through its unique "bunching" and "looping" mechanics. While the primary cord tracks fast-timescale, granular events (sensory/active states), the ability to "bunch" these into pendant cords allows for higher-level abstraction.
-- **Linear Sequence** (Low Level): Provides the raw, chronological sequence of evidence.
-- **Bundles/Loops** (High Level): Represents the "conceptual" or "strategic" level of the hierarchy. "Bunched" cords act as higher-order states that explain the sequences below them.
+
+* **Linear Sequence** (Low Level): Provides the raw, chronological sequence of evidence.
+* **Bundles/Loops** (High Level): Represents the "conceptual" or "strategic" level of the hierarchy. "Bunched" cords act as higher-order states that explain the sequences below them.
 
 When a user or agent bundles a set of actions—such as a series of log analyses, search results, and knowledge base lookups—they are essentially performing a message-passing operation in a hierarchical model. This reduces the cognitive load (variational free energy) by allowing the collaborators to focus on high-level intent and outcomes without losing access to the underlying causal evidence.
+
+### 11. Contextual Affordance Suggestion
+
+Dynamic pendant discovery (Principle 3) surfaces a filter affordance when a new action type first appears on the primary cord — the interface learns from what has happened. Contextual affordance suggestion is its forward-looking complement: the interface proposes *next* actions by projecting the action registry through the recent primary cord.
+
+Suggestions are surfaced as dismissible affordances (for example, chips above the composition field) and are derived from four sources:
+
+* **Recent event context** — what has just happened on the cord.
+* **Entity scope** — the persistent entities the current events reference.
+* **Observed sequence patterns** — action sequences that have historically followed similar contexts, discovered by the same machinery as named-narrative pattern detection (Principle 7).
+* **Agent-emitted prompts** — when an AI agent has identified a next action it recommends.
+
+Each suggestion carries a **rationale** identifying which of these four sources produced it, making the proposal transparent and auditable rather than opaque. Users retain full control: suggestions never mutate state, never persist independently, and become events on the primary cord only if accepted. Rejected or ignored suggestions leave no trace, preserving the cord as a faithful record of what actually happened rather than what the system proposed.
+
+Contextual affordance suggestion is the dual of dynamic pendant discovery. Discovery adds a filter when a new action type *first appears*; suggestion surfaces an existing action type when context makes it *likely to be relevant*. Both are emergent from the event stream; neither requires a predefined navigational hierarchy. This is a capability that tabbed interfaces structurally cannot provide, because tabs assume a fixed menu of affordances rather than one that adapts prospectively to causal context.
+
+In the active-inference framing of Principles 9 and 10, a suggestion is a prediction the system is making about the next move in the shared Markov blanket. User confirmation (low surprise) reinforces the prediction; user divergence (high surprise) provides informative signal for the next iteration. The mechanism is therefore continuous with, rather than additional to, the hierarchical inference structure already described.
 
 ---
 
@@ -172,6 +190,7 @@ The following matrix compares Quipu Architecture against established UI and soft
 | **User-facing** (designed as a primary UI, not a backend concern) | ● | ● | ● | ● | ● | ○ | ◐ | ◐ | ○ |
 | **Sequence pattern detection** (suggests workflows from recurring patterns) | ● | ○ | ○ | ○ | ○ | ○ | ○ | ○ | ○ |
 | **Recoverable full timeline** ("pull the string" to restore unfiltered view) | ● | ○ | ○ | ○ | ● | ○ | ● | ○ | ○ |
+| **Contextual affordance suggestion** (interface proposes next actions from the recent cord) | ● | ◐ | ○ | ○ | ○ | ○ | ○ | ○ | ○ |
 
 ### Reading the Matrix
 
@@ -207,8 +226,9 @@ The novel contribution of Quipu Architecture is the **specific combination** of:
 8. Cross-user aggregation (Quipu Bundles)
 9. Sequence pattern detection and workflow suggestion
 10. Native human-agent action unification (both actors on the same cord)
+11. Contextual affordance suggestion (interface proposes next actions from the recent cord, with rationale)
 
-— all applied as a **chat-based interaction pattern** that replaces tabs, panels, and dashboards with a single conversational workflow. No existing pattern — including current agentic AI chat interfaces — addresses more than four of these ten capabilities natively. Quipu Architecture is designed for the emerging paradigm where the chat is not a feature alongside the workflow; it *is* the workflow.
+— all applied as a **chat-based interaction pattern** that replaces tabs, panels, and dashboards with a single conversational workflow. Several of these capabilities have meaningful prior art individually (notably single linear causality in event sourcing and activity streams, filtered projections in log-viewing tools, and human-agent unification in current agentic IDEs); the contribution claimed here is the *synthesis* into a coherent, named, user-facing pattern, together with the specifically novel elements of dynamic pendant discovery, gap-acknowledging filter projections, narrative composition with sequence-pattern detection, Quipu Bundles for cross-user aggregation, and contextual affordance suggestion as the forward-looking dual of dynamic discovery. Quipu Architecture is proposed for the emerging paradigm where the chat is not a feature alongside the workflow; it *is* the workflow.
 
 ---
 
