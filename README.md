@@ -4,7 +4,7 @@
 ### The Universal Chat-Based Workflow Architecture for Agentic AI
 
 **Author:** Sean MacNiven  
-**Affiliation:** Glasgow Caledonian Univeristy / Leeds Beckett University / Kings College London / Coded for Humans  
+**Affiliation:** Glasgow Caledonian University / Leeds Beckett University / Kings College London / Coded for Humans  
 **First Published:** March 2026  
 **License:** MIT  
 **DOI:** *10.5281/zenodo.18941708*
@@ -13,13 +13,13 @@
 
 ## Abstract
 
-Quipu Architecture is an open UI/interaction design pattern that replaces tabs, panels, and dashboards with **a single conversational timeline**. It is designed for the emerging paradigm of **agentic AI workflows** — applications where humans and AI agents collaborate, delegate, and act in the same workspace. No existing UI architecture lets the interface grow its own navigation as new types of actions occur, shows you what's hidden when you filter instead of silently removing it, lets you combine filters into reusable stories across action types, and places human and AI agent actions on a single linear timeline — all without tabs, panels, or branching. Quipu is designed by and for homo narrans, for at our core, humans are storytellers, and reality is processed as narrative.
+Quipu Architecture is an open UI/interaction design pattern that replaces tabs, panels, and dashboards with **a single conversational timeline**. It is designed for the emerging paradigm of **agentic AI workflows** — applications where humans and AI agents collaborate, delegate, and act in the same workspace. While individual elements have prior art across event sourcing, activity streams, log viewers, and modern agentic IDEs, no existing pattern combines them into a coherent, named, user-facing interaction architecture that lets the interface grow its own navigation as new types of actions occur, acknowledges what is hidden when filters are applied rather than silently removing it, lets users compose reusable narrative views across action types, and places human and AI agent actions on a single linear timeline — without tabs, panels, or branching. Quipu is designed by and for *homo narrans*: at our core, humans are storytellers, and reality is processed as narrative.
 
 Every action — whether a human decision, an AI agent's output, or a background system event — is logged as an event on a **single linear causal timeline** (the *primary cord*). Events are tagged by action type and form **pendant cords** — dynamic, filterable groupings that can be isolated, inspected, and navigated without leaving the timeline. The architecture is inspired by the Incan *quipu* (khipu): a knotted-cord record-keeping system in which a single horizontal primary cord carries pendant cords bearing knots that encode information through their type, position, colour, and material.
 
 Unlike tabbed interfaces, parallel panel layouts, or branching conversation trees, Quipu Architecture preserves **strict linear causality**. Parallel computations are collapsed into the single event that initiated them. The result is an interface that can be "pulled straight" into a flat chronological sequence, or "bunched" into loops of related action types for focused exploration.
 
-**The core proposition:** In agentic AI applications, the chat is not a feature — it is the entire workflow. Quipu Architecture provides the structural pattern that makes this possible. Importantly, it is also a single record of truth. 
+**The core proposition:** In agentic AI applications, the chat need not be a feature alongside the workflow — it can become the workflow itself. Quipu Architecture proposes a structural pattern for making this practical at scale, and aims to provide a single record of truth for the human-agent interaction.
 
 **The Universal Model:**
 A case quipu is equivalent to exporting a universal model of the entire interaction. Every search, every decision, and every insight is captured within the quipu's structure. This makes the quipu not just a log, but a self-evidencing generative model suitable for:
@@ -173,6 +173,8 @@ In the active-inference framing of Principles 9 and 10, a suggestion is a predic
 
 The following matrix compares Quipu Architecture against established UI and software architecture patterns across the capabilities that define Quipu's design space. A filled circle (●) indicates native support; a half circle (◐) indicates partial or indirect support; an empty circle (○) indicates the pattern does not address this capability.
 
+*A note on scoring.* This matrix represents the author's own assessment and is, by construction, advocacy for the pattern being introduced. Several competing systems (notably modern agentic IDEs, Datadog's event explorer, Slack's saved searches, and Linear's activity views) could reasonably be argued upward by half a circle on multiple rows. The matrix is offered as a starting point for comparison, not as a settled adjudication; adversarial re-scoring by practitioners working in those ecosystems is explicitly invited (see *Limitations and Open Questions* below).
+
 | Capability | Quipu | Agentic AI Chat | Tabbed UI | Activity Stream | Threaded Conversations | Event Sourcing | Knowledge Graph | Version Control | CQRS |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | **Single linear causal spine** | ● | ● | ○ | ● | ○ | ● | ○ | ○ | ○ |
@@ -194,7 +196,7 @@ The following matrix compares Quipu Architecture against established UI and soft
 
 ### Reading the Matrix
 
-No existing pattern scores ● across more than four of these capabilities. Quipu Architecture scores ● across all fifteen. The key distinctions:
+Under the author's scoring, no existing pattern scores ● across more than four of these capabilities, while Quipu Architecture is designed to address all fifteen. Even with more generous scoring of competitors, the *combination* — and in particular the synthesis of dynamic pendant discovery, narrative composition with gap indicators, and cross-user bundling within a single chat-based interaction surface — appears to be without direct precedent. The key distinctions are:
 
 **vs. Agentic AI Chat (ChatGPT, Claude, Gemini, Copilot):** Current agentic chat interfaces present a conversational transcript — human message, agent response, human message, agent response. They share Quipu's linear spine, but they lack everything that makes a timeline *navigable*: no filtering by action type, no dynamic discovery of new capabilities, no entity linkage, no narrative composition, no bundling, no meta-events. When an agent performs ten actions in sequence, the user must scroll through all of them to find the one they care about. In a 200-message conversation, there is no way to see "just the code changes" or "just the decisions." Agentic chat is a transcript; Quipu is an explorable workflow.
 
@@ -259,6 +261,57 @@ Quipu Architecture is domain-agnostic. Any process involving sequential actions,
 - **[Research Workflow](examples/research-workflow.md):** Literature review, data collection, analysis, and writing events for academic research project management.
 
 See the `/examples` directory for domain-specific worked examples.
+
+---
+
+## Limitations and Open Questions
+
+Quipu Architecture is offered as a specification, not as a finished and validated system. The following limitations are acknowledged explicitly, both to set honest expectations and to invite engagement from practitioners and researchers.
+
+**Empirical evidence is currently absent.** The comparative matrix and the principled arguments are reasoned, not measured. Whether users actually complete agentic-workflow tasks faster, more accurately, or with greater satisfaction on a Quipu-style interface than on a tabbed equivalent is an open empirical question. Two validation studies are planned (see *Empirical Validation Roadmap* below).
+
+**Scaling behaviour is undocumented.** The architecture's behaviour at large event counts (10⁴ events on a single primary cord, 10⁵ events across a Quipu Bundle) has not been characterised. Open questions include: at what point does dynamic pendant discovery produce filter clutter that degrades rather than aids navigation; what indexing strategies are required for sub-second filter projections at scale; how meta-event aggregation should be triggered automatically versus user-initiated; and what the practical limits of cross-user bundling are before computational or cognitive cost dominates.
+
+**No reference implementation yet exists.** The repository currently contains the specification, architectural guidance, and worked domain examples in prose form. A minimal TypeScript reference implementation is on the roadmap and would substantially lower the cost of adoption and adversarial critique.
+
+**Accessibility has not been addressed in the specification.** A linear timeline interface has interesting accessibility properties — favourable for screen-reader linearisation in some respects, challenging for keyboard navigation across long timelines and dynamically appearing filter affordances in others. A dedicated accessibility section is planned for a future revision.
+
+**State management guidance is incomplete.** The relationship between the event log and persistent application state, and the boundary between Quipu's user-facing event surface and any backend event-sourcing or CQRS layer, is touched on in `ARCHITECTURE.md` but warrants fuller treatment.
+
+**The matrix scoring is the author's own.** As noted in the matrix preamble, several competitors could reasonably be argued upward. A formal adversarial re-scoring exercise involving practitioners from the relevant adjacent ecosystems is on the roadmap.
+
+**The active inference framing (Principles 9, 10, and 11) is theoretical.** The argument that the Quipu functions as a shared Markov blanket, supports hierarchical message passing between human and agent, and frames contextual suggestion as predictive inference is conceptually motivated but has not been formalised mathematically or evaluated against alternative theoretical framings.
+
+**Cryptographic verifiability is not yet specified.** The architecture is well-suited to tamper-evident hash-chained event logs and to multi-party attestation patterns, but the current specification does not define them. A v1.5 extension is planned that will add an optional hash chain to the event schema and a pluggable attestation interface, with reference adapters covering local signing, RFC 3161 trusted timestamps, and Bitcoin-anchored proof-of-existence via OpenTimestamps. The architecture will deliberately not commit to any single attestation backend; blockchain-based attestation will be supported as a downstream adapter for consumers who want it, on the same footing as simpler alternatives. This design choice keeps the core specification dependency-free, avoids the GDPR exposure of putting personal data on a public chain, and preserves optionality for consumers with different trust models. Full design details are in [VERIFIABILITY.md](./VERIFIABILITY.md).
+
+---
+
+## Empirical Validation Roadmap
+
+Two validation studies are planned and underway, and a third is under negotiation.
+
+**Study 1 — xRead implementation (planned and underway).** Quipu Architecture is the interaction design underpinning xRead, an AI-assisted academic grading Chrome extension for Canvas SpeedGrader. The xRead pilot, scheduled to begin in Q2 2026, will provide the first real-world deployment data: marker-behaviour telemetry on filter usage, narrative composition, meta-event aggregation, and pendant cord discovery patterns; comparative timing data on grading sessions versus the unstructured Canvas SpeedGrader baseline; and qualitative interview data with pilot markers on the perceived auditability and navigability of their grading sessions. Data collection methodology, ethics approval pathway (King's College London), and analysis pre-registration are in preparation.
+
+**Study 2 — between-subjects user study (planned).** A controlled between-subjects study comparing a Quipu-pattern prototype against a tabbed-equivalent control on a representative agentic-workflow task is planned for Q3 2026. Primary outcome measures: task completion time, error rate, and post-task System Usability Scale scores. Secondary measures: subjective auditability ratings and recall of agent actions performed during the session. Target N is being scoped against a power analysis for medium effect sizes.
+
+**Study 3 — enterprise validation (under discussion).** A potential validation study within a major enterprise software company is under preliminary discussion, with the prospect of anonymised usage data from a case-management or support-workflow context. If this proceeds, it would provide the first evidence at enterprise scale (sustained use, heterogeneous users, mature adjacent tooling) and would test the cross-user Quipu Bundle pattern in a setting where comparable cross-case aggregation already exists in production tools.
+
+All three studies will be reported openly in this repository as data becomes available, regardless of whether the results favour or challenge the architecture.
+
+---
+
+## Roadmap
+
+The following are committed next steps for the specification and surrounding artefacts:
+
+* **v1.2 (this release):** softened claims; added *Limitations and Open Questions*, *Empirical Validation Roadmap*, and *Roadmap*; added Principle 11 (Contextual Affordance Suggestion); added VERIFIABILITY.md design document.
+* **v1.3 — TypeScript reference implementation:** a minimal, dependency-light TypeScript implementation of the event schema, dynamic pendant discovery, filter projections, meta-event aggregation, contextual affordance suggestion, and a Quipu Bundle aggregator. Released alongside a small demonstration application.
+* **v1.4 — Scaling and failure-mode analysis:** documented benchmarks for filter-projection latency, pendant-discovery clutter thresholds, and bundle-aggregation cost at 10³, 10⁴, and 10⁵ events. Documented failure modes and recommended mitigations.
+* **v1.5 — Verifiability extensions:** optional hash-chained event log and pluggable bundle attestation interface, with reference adapters for Ed25519 local signing, RFC 3161 trusted timestamps, and OpenTimestamps Bitcoin anchoring. Designed to make Quipu primary cords cryptographically tamper-evident and optionally witnessable, without committing the core specification to any single attestation backend; blockchain-based attestation supported as a downstream adapter for consumers who require it. Full design in [VERIFIABILITY.md](./VERIFIABILITY.md).
+* **v1.6 — Empirical evidence:** integration of findings from the xRead pilot (Study 1) and the between-subjects user study (Study 2). The comparative matrix will be revised in light of any findings that contradict the current scoring.
+* **Adversarial matrix re-scoring:** structured exercise inviting practitioners from agentic IDE, observability, team-chat, and project-management tooling ecosystems to re-score the comparative matrix and propose revisions.
+
+Contributions, critiques, and adversarial readings of any part of the specification are welcomed via GitHub Issues.
 
 ---
 
