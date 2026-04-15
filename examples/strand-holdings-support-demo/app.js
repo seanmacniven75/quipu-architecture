@@ -4,11 +4,15 @@ const narrativesEl = document.getElementById("narratives");
 const detailEl = document.getElementById("detail");
 const clearFiltersBtn = document.getElementById("clearFilters");
 const saveNarrativeBtn = document.getElementById("saveNarrative");
+const sendBtn = document.getElementById("sendBtn");
+const composerInput = document.getElementById("composerInput");
+const actionButtons = document.querySelectorAll(".pill-btn");
 
 const selectedTypes = new Set();
 const narratives = [];
 let events = [];
 let activeEventId = null;
+let liveCounter = 1;
 
 const fmt = new Intl.DateTimeFormat("en-GB", {
   dateStyle: "medium",
@@ -119,6 +123,8 @@ function renderTimeline() {
     `;
     timelineEl.appendChild(node);
   }
+
+  timelineEl.scrollTop = timelineEl.scrollHeight;
 }
 
 function renderDetail() {
@@ -165,6 +171,23 @@ function renderAll() {
   renderNarratives();
 }
 
+function appendEvent(type, initiatedBy, actor, payload, entityRefs = ["ticket:SH-IT-104221"]) {
+  const event = {
+    id: `ev-live-${liveCounter++}`,
+    timestamp: new Date().toISOString(),
+    type,
+    initiatedBy,
+    actor,
+    payload,
+    entityRefs,
+  };
+
+  events.push(event);
+  events.sort(byTime);
+  activeEventId = event.id;
+  renderAll();
+}
+
 clearFiltersBtn.onclick = () => {
   selectedTypes.clear();
   renderAll();
@@ -181,5 +204,40 @@ saveNarrativeBtn.onclick = () => {
   });
   renderNarratives();
 };
+
+actionButtons.forEach((btn) => {
+  btn.onclick = () => {
+    const eventType = btn.dataset.eventType;
+    if (!eventType) return;
+
+    appendEvent(eventType, "user", "john.public@strandholdings.example", {
+      ticketId: "SH-IT-104221",
+      action: btn.textContent.trim(),
+    });
+  };
+});
+
+sendBtn.onclick = () => {
+  const message = composerInput.value.trim();
+  if (!message) return;
+
+  appendEvent("chat.user_message", "user", "john.public@strandholdings.example", {
+    ticketId: "SH-IT-104221",
+    message,
+  });
+
+  appendEvent("chat.agent_reply", "agent", "strand-support-agent", {
+    ticketId: "SH-IT-104221",
+    message: "Noted. I have added that to the ticket context and updated the support narrative.",
+  });
+
+  composerInput.value = "";
+};
+
+composerInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    sendBtn.click();
+  }
+});
 
 loadEvents().then(renderAll);
