@@ -6,6 +6,7 @@ const saveNarrativeBtn = document.getElementById("saveNarrative");
 const messageInput = document.getElementById("messageInput");
 const sendMessageBtn = document.getElementById("sendMessage");
 const actionButtons = document.querySelectorAll(".action-btn");
+const viewStatusEl = document.getElementById("viewStatus");
 
 const selectedTypes = new Set();
 const discoveredTypes = new Set();
@@ -47,9 +48,11 @@ function renderFilters() {
   filtersEl.innerHTML = "";
   const types = [...discoveredTypes];
   if (types.length === 0) {
+    viewStatusEl.textContent = "No views discovered yet.";
     filtersEl.innerHTML = "<p class='empty'>No views yet. Trigger any action above.</p>";
     return;
   }
+  viewStatusEl.textContent = `${types.length} views discovered.`;
 
   for (const type of types) {
     const chip = document.createElement("button");
@@ -175,9 +178,11 @@ messageInput.addEventListener("keydown", (event) => {
 });
 
 clearFiltersBtn.onclick = () => {
+  const hadSelection = selectedTypes.size > 0;
   selectedTypes.clear();
   renderFilters();
   renderTimeline();
+  viewStatusEl.textContent = hadSelection ? "View selection cleared." : "Nothing selected to clear.";
 };
 
 saveNarrativeBtn.onclick = () => {

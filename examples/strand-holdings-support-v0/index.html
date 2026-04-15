@@ -17,6 +17,9 @@
         <button class="action-btn" data-event-type="view.escalation_path">Trigger Escalation View</button>
         <button class="action-btn" data-event-type="agent.sla_assessment">Trigger SLA View</button>
         <button class="action-btn" data-event-type="agent.similar_incident_scan">Trigger Similar-Incidents View</button>
+        <button class="action-btn" data-event-type="workflow.handoff_started">Trigger Handoff View</button>
+        <button class="action-btn" data-event-type="automation.root_cause_hypothesis">Trigger Root-Cause View</button>
+        <button class="action-btn" data-event-type="ticket.priority_reassessed">Trigger Priority-Change View</button>
       </section>
 
       <section class="composer">
@@ -32,6 +35,7 @@
             <button id="saveNarrative">Save Narrative</button>
           </div>
         </div>
+        <p id="viewStatus" class="status">No views discovered yet.</p>
         <div id="filters" class="chips"></div>
         <div id="narratives" class="narratives"></div>
       </section>
