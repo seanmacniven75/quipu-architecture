@@ -5,7 +5,7 @@
 ### An Interaction Architecture for Chat-Native Agentic Workflows
 
 **Author:** Dr. Sean MacNiven
-**Affiliation:** Coded for Humans; MSc Applied Neuroscience candidate, King's College London
+**Affiliation:** Coded for Humans; Glasgow Caledonian University, Leeds-Beckett University and King's College London
 **First Published:** March 2026 (v1.0); current revision v1.3
 **License:** MIT
 **DOI:** 10.5281/zenodo.18941708
