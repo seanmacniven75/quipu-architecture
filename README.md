@@ -203,6 +203,7 @@ Quipu Architecture is domain-agnostic in the weak sense that the mechanics do no
 
 - **[Editorial Workflow](examples/editorial-workflow.md):** peer review, revision, and publication decision events for journal manuscript management.
 - **[Research Workflow](examples/research-workflow.md):** literature review, data collection, analysis, and writing events for academic research project management.
+- **[Visualization Timeline Control](examples/visualization/index.html):** a small WebGPU prototype showing a rope-like primary cord, knot-like event rendering, pendant strands, and 10-second temporal group overlays while preserving sequence-ordered Quipu events.
 
 ---
 
