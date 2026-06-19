@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quipu Timeline — WebGPU Visualization</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <nav class="topbar">
+        <span class="topbar-brand">Quipu Architecture</span>
+        <span class="topbar-sep">/</span>
+        <span class="topbar-page">Timeline Visualization</span>
+      </nav>
+
+      <main class="content">
+        <header class="page-header">
+          <h1>Primary Cord Timeline</h1>
+          <p class="subtitle">
+            WebGPU-rendered quipu. Events ordered by sequence number; temporal
+            groups clustered within a 10-second window.
+          </p>
+        </header>
+
+        <section class="card filters-card">
+          <h2 class="card-title">Pendant Cord Filters</h2>
+          <p class="card-desc">Discovered event types. Toggle to project the timeline.</p>
+          <div id="filterChips" class="chip-row" aria-label="Pendant cord filters"></div>
+          <button id="clearFilters" class="btn btn-secondary" type="button">Clear filters</button>
+        </section>
+
+        <section class="card canvas-card">
+          <div class="canvas-toolbar">
+            <h2 class="card-title">Quipu Visualization</h2>
+            <div class="legend">
+              <span class="legend-item"><i class="dot dot-user"></i>User</span>
+              <span class="legend-item"><i class="dot dot-agent"></i>Agent</span>
+              <span class="legend-item"><i class="dot dot-system"></i>System</span>
+              <span class="legend-item"><i class="bar-sample"></i>10 s group</span>
+            </div>
+          </div>
+          <div class="canvas-wrap">
+            <canvas id="quipuCanvas" width="1280" height="620" aria-label="WebGPU quipu timeline"></canvas>
+            <div id="tooltip" class="tooltip" hidden></div>
+          </div>
+          <p id="gpuStatus" class="status-text" role="status"></p>
+        </section>
+
+        <section class="card timeline-card">
+          <h2 class="card-title">Projected Event List</h2>
+          <div id="timelineList" class="event-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>

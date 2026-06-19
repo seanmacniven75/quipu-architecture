@@ -5,7 +5,7 @@
 ### An Interaction Architecture for Chat-Native Agentic Workflows
 
 **Author:** Dr. Sean MacNiven
-**Affiliation:** Coded for Humans; MSc Applied Neuroscience candidate, King's College London
+**Affiliation:** Coded for Humans; Glasgow Caledonian University, Leeds-Beckett University and King's College London
 **First Published:** March 2026 (v1.0); current revision v1.3
 **License:** MIT
 **DOI:** 10.5281/zenodo.18941708
@@ -203,6 +203,7 @@ Quipu Architecture is domain-agnostic in the weak sense that the mechanics do no
 
 - **[Editorial Workflow](examples/editorial-workflow.md):** peer review, revision, and publication decision events for journal manuscript management.
 - **[Research Workflow](examples/research-workflow.md):** literature review, data collection, analysis, and writing events for academic research project management.
+- **[Visualization Timeline Control](examples/visualization/index.html):** a small WebGPU prototype showing a rope-like primary cord, knot-like event rendering, pendant strands, and 10-second temporal group overlays while preserving sequence-ordered Quipu events.
 
 ---
 
@@ -234,7 +235,7 @@ Quipu Architecture is offered as a specification, not as a finished and validate
 
 Three validation studies are in progress or under discussion; all will be reported openly in this repository as data becomes available, regardless of whether the results favour or challenge the architecture.
 
-**Study 1, xRead deployment (planned and underway).** Quipu Architecture is the interaction design underpinning xRead, an AI-assisted academic grading Chrome extension for Canvas SpeedGrader; the xRead pilot, scheduled to begin in Q2 2026, will provide the first real-world deployment data, including marker-behaviour telemetry on filter usage, narrative composition, meta-event aggregation, pendant-cord discovery, and (critically) skill crystallisation adoption; comparative timing data on grading sessions versus the unstructured Canvas SpeedGrader baseline; and qualitative interview data with pilot markers on perceived auditability and navigability. Ethics approval is being sought through King's College London. A limitation of Study 1 as an architectural validation is that xRead's success or failure will depend on factors beyond the architecture (Canvas integration, Chrome Web Store policy, marker recruitment, institutional dynamics at the pilot institution); for this reason, Study 2 is positioned as the primary architectural validation, with Study 1 providing deployment-level evidence.
+**Study 1, xRead deployment (planned and underway).** Quipu Architecture is the interaction design underpinning xRead, an AI-assisted academic grading Chrome extension for Canvas SpeedGrader; the xRead pilot, scheduled to begin in Q2 2026, will provide the first real-world deployment data, including marker-behaviour telemetry on filter usage, narrative composition, meta-event aggregation, pendant-cord discovery, and (critically) skill crystallisation adoption; comparative timing data on grading sessions versus the unstructured Canvas SpeedGrader baseline; and qualitative interview data with pilot markers on perceived auditability and navigability. A limitation of Study 1 as an architectural validation is that xRead's success or failure will depend on factors beyond the architecture (Canvas integration, Chrome Web Store policy, marker recruitment, institutional dynamics at the pilot institution); for this reason, Study 2 is positioned as the primary architectural validation, with Study 1 providing deployment-level evidence.
 
 **Study 2, controlled between-subjects study (planned).** A controlled between-subjects study comparing a Quipu-pattern prototype against a tabbed-equivalent control on a representative agentic-workflow task is planned for Q3 2026; primary outcomes are task completion time, error rate, and post-task System Usability Scale scores. Secondary outcomes are subjective auditability ratings, recall of agent actions performed during the session, and a behavioural measure of skill crystallisation adoption. The task domain will be chosen to be independent of xRead, so that Study 2 evaluates the pattern rather than the product. Target N is being scoped against a power analysis for medium effect sizes.
 
