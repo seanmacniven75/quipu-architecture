@@ -1,0 +1,100 @@
+/* Quipu Design System — Colour tokens
+ *
+ * Palette logic:
+ *   The "cord" is petrol teal — the spine of every Quipu interface (carried
+ *   over from the reference prototype's #155b77). "Clay" is the warm Andean
+ *   accent reserved for emergent / crystallised moments. Neutrals are a cool
+ *   slate ramp ("ink" for text, "line" for borders, "paper" for surfaces).
+ *   Pendant-cord type colours are a muted categorical set — events are
+ *   colour-coded by type, so these must stay distinguishable yet calm.
+ */
+:root {
+  /* ---- Neutrals: ink (text) ---- */
+  --ink-900: #14202b; /* primary text, near-black petrol */
+  --ink-800: #1f2d3a; /* headings (prototype body colour) */
+  --ink-700: #2b3d4d;
+  --ink-600: #45596a;
+  --ink-500: #5a6f7f; /* secondary text */
+  --ink-400: #7c8fa0; /* muted / meta text */
+  --ink-300: #a9b8c4; /* disabled text, faint labels */
+
+  /* ---- Neutrals: line (borders) & paper (surfaces) ---- */
+  --line-300: #cdd7df;
+  --line-200: #dce4eb; /* default border (prototype) */
+  --line-100: #e9eef2; /* hairline / inner dividers */
+  --paper-100: #eef2f5; /* sunken wells */
+  --paper-50: #f5f7fa;  /* app background (prototype) */
+  --paper-0: #ffffff;   /* card / raised surface */
+
+  /* ---- Primary: cord (petrol teal) ---- */
+  --cord-800: #0a3d50;
+  --cord-700: #0e4d63;
+  --cord-600: #155b77; /* primary brand */
+  --cord-500: #1e6f8e;
+  --cord-400: #4593af;
+  --cord-200: #b4dbe7;
+  --cord-100: #e0f0f6; /* active chip tint (prototype #e8f9fc family) */
+  --cord-50:  #f0f8fb;
+
+  /* ---- Accent: clay (terracotta — emergent / crystallised skills) ---- */
+  --clay-700: #9c4527;
+  --clay-600: #b8542f;
+  --clay-500: #cf6a44;
+  --clay-200: #f0cdbd;
+  --clay-100: #f7e3d9;
+  --clay-50:  #fcf3ee;
+
+  /* ---- Pendant-cord type colours (categorical, muted) ---- */
+  --type-system:      #64748b; /* ⚙  System */
+  --type-system-bg:   #eef1f4;
+  --type-customer:    #2f6fb0; /* 💬 Customer */
+  --type-customer-bg: #e6eff8;
+  --type-agent:       #1f8a7a; /* 🎧 Agent / AI */
+  --type-agent-bg:    #e1f3ef;
+  --type-internal:    #9a7320; /* 🔒 Internal */
+  --type-internal-bg: #f5ecd7;
+  --type-escalation:  #c0492f; /* 🔺 Escalation */
+  --type-escalation-bg:#f8e4de;
+  --type-knowledge:   #5f56bf; /* 📖 Knowledge */
+  --type-knowledge-bg:#ebe9f7;
+  --type-diagnostic:  #c2741f; /* 🔧 Diagnostics */
+  --type-diagnostic-bg:#f7ead7;
+  --type-sla:         #9a8412; /* ⏱ SLA */
+  --type-sla-bg:      #f3efd2;
+  --type-resolution:  #3f8a5b; /* ✅ Resolution */
+  --type-resolution-bg:#e2f1e7;
+  --type-automation:  #8a4f9e; /* ✨ Automation / emergent AI capability */
+  --type-automation-bg:#f1e8f5;
+
+  /* ---- Semantic status ---- */
+  --status-success: #3f8a5b;
+  --status-warning: #c2741f;
+  --status-danger:  #c0492f;
+  --status-info:    #2f6fb0;
+
+  /* ---- Semantic aliases (use these in UI) ---- */
+  --text-primary:   var(--ink-900);
+  --text-heading:   var(--ink-800);
+  --text-body:      var(--ink-700);
+  --text-muted:     var(--ink-500);
+  --text-faint:     var(--ink-400);
+  --text-on-cord:   #ffffff;
+  --text-link:      var(--cord-600);
+
+  --surface-app:    var(--paper-50);
+  --surface-card:   var(--paper-0);
+  --surface-sunken: var(--paper-100);
+  --surface-cord:   var(--cord-600);
+  --surface-cord-tint: var(--cord-100);
+
+  --border-default: var(--line-200);
+  --border-strong:  var(--line-300);
+  --border-hairline:var(--line-100);
+
+  --accent:         var(--clay-600);
+  --accent-tint:    var(--clay-100);
+
+  /* The literal cord drawn down timelines / the quipu spine */
+  --cord-line:      var(--cord-600);
+  --cord-line-faint:var(--cord-200);
+}

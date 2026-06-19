@@ -1,0 +1,17 @@
+--- README.md
++++ README.md
+@@ -148,6 +148,15 @@
+ Contextual affordance suggestion is the dual of dynamic pendant discovery. Discovery adds a filter when a new action type *first appears*; suggestion surfaces an existing action type when context makes it *likely to be relevant*. Both are emergent from the event stream; neither requires a predefined navigational hierarchy. This is a capability that tabbed interfaces structurally cannot provide, because tabs assume a fixed menu of affordances rather than one that adapts prospectively to causal context.
+ 
+ In the active-inference framing of Principles 9 and 10, a suggestion is a prediction the system is making about the next move in the shared Markov blanket. User confirmation (low surprise) reinforces the prediction; user divergence (high surprise) provides informative signal for the next iteration. The mechanism is therefore continuous with, rather than additional to, the hierarchical inference structure already described.
++
++**The active inference framing (Principles 9, 10, and 11) is theoretical.** The argument that the Quipu functions as a shared Markov blanket, supports hierarchical message passing between human and agent, and frames contextual suggestion as predictive inference is conceptually motivated but has not been formalised mathematically or evaluated against alternative theoretical framings.
++
++**Cryptographic verifiability is not yet specified.** The architecture is well-suited to tamper-evident hash-chained event logs and to multi-party attestation patterns, but the v1.0 specification does not define them. A v1.5 extension is planned that will add an optional hash chain to the event schema and a pluggable attestation interface, with reference adapters covering local signing, RFC 3161 trusted timestamps, and Bitcoin-anchored proof-of-existence via OpenTimestamps. The architecture will deliberately not commit to any single attestation backend; blockchain-based attestation will be supported as a downstream adapter for consumers who want it, on the same footing as simpler alternatives. This design choice keeps the core specification dependency-free, avoids the GDPR exposure of putting personal data on a public chain, and preserves optionality for consumers with different trust models.
++
++* **v1.4 — Empirical evidence:** integration of findings from the xRead pilot (Study 1) and the between-subjects user study (Study 2). The comparative matrix will be revised in light of any findings that contradict the current scoring.
++* **v1.5 — Verifiability extensions:** optional hash-chained event log and pluggable bundle attestation interface, with reference adapters for Ed25519 local signing, RFC 3161 trusted timestamps, and OpenTimestamps Bitcoin anchoring. Designed to make Quipu primary cords cryptographically tamper-evident and optionally witnessable, without committing the core specification to any single attestation backend; blockchain-based attestation supported as a downstream adapter for consumers who require it.
++* **Adversarial matrix re-scoring:** structured exercise inviting practitioners from agentic IDE, observability, team-chat, and project-management tooling ecosystems to re-score the comparative matrix and propose revisions.
+ 
+ ---
+ 

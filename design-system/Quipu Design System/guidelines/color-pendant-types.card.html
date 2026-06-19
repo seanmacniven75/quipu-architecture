@@ -1,0 +1,29 @@
+<!-- @dsCard group="Colors" viewport="700x230" name="Pendant-cord type palette" subtitle="Muted categorical set — events colour-coded by type" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--surface-card); font-family: var(--font-sans); }
+  .wrap { padding: 20px 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .t { display: flex; align-items: center; gap: 9px; padding: 9px 11px; border-radius: var(--radius-md); }
+  .dot { width: 12px; height: 12px; border-radius: 999px; flex: none; }
+  .lab { font-size: var(--text-xs); font-weight: 600; }
+  .key { font-family: var(--font-mono); font-size: 9px; color: var(--text-faint); margin-left: auto; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="t" style="background:var(--type-system-bg)"><span class="dot" style="background:var(--type-system)"></span><span class="lab" style="color:var(--type-system)">System</span><span class="key">system</span></div>
+    <div class="t" style="background:var(--type-customer-bg)"><span class="dot" style="background:var(--type-customer)"></span><span class="lab" style="color:var(--type-customer)">Customer</span><span class="key">customer</span></div>
+    <div class="t" style="background:var(--type-agent-bg)"><span class="dot" style="background:var(--type-agent)"></span><span class="lab" style="color:var(--type-agent)">Agent / AI</span><span class="key">agent</span></div>
+    <div class="t" style="background:var(--type-internal-bg)"><span class="dot" style="background:var(--type-internal)"></span><span class="lab" style="color:var(--type-internal)">Internal</span><span class="key">internal</span></div>
+    <div class="t" style="background:var(--type-escalation-bg)"><span class="dot" style="background:var(--type-escalation)"></span><span class="lab" style="color:var(--type-escalation)">Escalation</span><span class="key">escalation</span></div>
+    <div class="t" style="background:var(--type-knowledge-bg)"><span class="dot" style="background:var(--type-knowledge)"></span><span class="lab" style="color:var(--type-knowledge)">Knowledge</span><span class="key">knowledge</span></div>
+    <div class="t" style="background:var(--type-diagnostic-bg)"><span class="dot" style="background:var(--type-diagnostic)"></span><span class="lab" style="color:var(--type-diagnostic)">Diagnostics</span><span class="key">diagnostic</span></div>
+    <div class="t" style="background:var(--type-sla-bg)"><span class="dot" style="background:var(--type-sla)"></span><span class="lab" style="color:var(--type-sla)">SLA</span><span class="key">sla</span></div>
+    <div class="t" style="background:var(--type-resolution-bg)"><span class="dot" style="background:var(--type-resolution)"></span><span class="lab" style="color:var(--type-resolution)">Resolution</span><span class="key">resolution</span></div>
+  </div>
+</body>
+</html>

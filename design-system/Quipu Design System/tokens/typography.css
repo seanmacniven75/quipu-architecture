@@ -1,0 +1,60 @@
+/* Quipu Design System — Typography tokens
+ *
+ * Three families, three jobs:
+ *   serif (Spectral)      — editorial voice, the scholarly/archival register
+ *                           of the spec; display headings, pull quotes.
+ *   sans  (Hanken Grotesk)— all product UI, body copy, labels, buttons.
+ *   mono  (JetBrains Mono)— event types (dot.separated), counts, code, data.
+ */
+:root {
+  /* ---- Families ---- */
+  --font-serif: 'Spectral', Georgia, 'Times New Roman', serif;
+  --font-sans:  'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:  'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* ---- Type scale (1.25 major-third-ish, tuned) ---- */
+  --text-3xs: 11px;
+  --text-2xs: 12px;
+  --text-xs:  13px;
+  --text-sm:  14px;
+  --text-base:15px;  /* product body default */
+  --text-md:  16px;
+  --text-lg:  18px;
+  --text-xl:  22px;
+  --text-2xl: 28px;
+  --text-3xl: 36px;
+  --text-4xl: 46px;
+  --text-5xl: 60px;
+  --text-6xl: 78px;
+
+  /* ---- Weights ---- */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-extra:    800;
+
+  /* ---- Line heights ---- */
+  --leading-tight:   1.12;  /* display headings */
+  --leading-snug:    1.28;  /* subheads */
+  --leading-normal:  1.5;   /* body */
+  --leading-relaxed: 1.65;  /* long-form prose */
+
+  /* ---- Letter spacing ---- */
+  --tracking-tighter: -0.03em; /* large serif display */
+  --tracking-tight:   -0.015em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.02em;
+  --tracking-caps:    0.08em;  /* eyebrows / overlines */
+
+  /* ---- Semantic roles ---- */
+  --type-display:    var(--weight-semibold) var(--text-5xl)/var(--leading-tight) var(--font-serif);
+  --type-h1:         var(--weight-semibold) var(--text-3xl)/var(--leading-tight) var(--font-serif);
+  --type-h2:         var(--weight-semibold) var(--text-2xl)/var(--leading-snug) var(--font-serif);
+  --type-h3:         var(--weight-bold) var(--text-lg)/var(--leading-snug) var(--font-sans);
+  --type-body:       var(--weight-regular) var(--text-base)/var(--leading-normal) var(--font-sans);
+  --type-body-sm:    var(--weight-regular) var(--text-sm)/var(--leading-normal) var(--font-sans);
+  --type-label:      var(--weight-semibold) var(--text-xs)/var(--leading-snug) var(--font-sans);
+  --type-mono:       var(--weight-medium) var(--text-xs)/var(--leading-snug) var(--font-mono);
+  --type-eyebrow:    var(--weight-semibold) var(--text-2xs)/var(--leading-snug) var(--font-sans);
+}

@@ -1,0 +1,323 @@
+<!-- @dsCard group="Brand" viewport="900x540" name="Motion — bundling the cord" subtitle="The signature interaction: a primary cord projecting & bundling as categories are chosen" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quipu — bundling the cord</title>
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  html, body { margin: 0; height: 100%; background: #0a0a0a; }
+  #root { position: fixed; inset: 0; }
+  .lucide { width: 1em; height: 1em; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script type="text/babel" src="./animations.jsx"></script>
+
+  <script type="text/babel">
+    const { Stage, Sprite, TextSprite, useTime, Easing, clamp } = window;
+    const E = Easing;
+    const lerp = (a, b, f) => a + (b - a) * f;
+    const seg = (t, a, b, ease = E.easeInOutCubic) => ease(clamp((t - a) / (b - a), 0, 1));
+
+    const FONT_SANS = "'Hanken Grotesk', system-ui, sans-serif";
+    const FONT_SERIF = "'Spectral', Georgia, serif";
+    const FONT_MONO = "'JetBrains Mono', ui-monospace, monospace";
+
+    const TYPE = {
+      system: 'system', customer: 'customer', sla: 'sla', agent: 'agent',
+      diagnostic: 'diagnostic', knowledge: 'knowledge', escalation: 'escalation', resolution: 'resolution',
+    };
+    const col = (t) => `var(--type-${t})`;
+    const colBg = (t) => `var(--type-${t}-bg)`;
+    const ICON = {
+      system: 'settings-2', customer: 'message-circle', sla: 'timer', agent: 'headphones',
+      diagnostic: 'wrench', knowledge: 'book-open', escalation: 'triangle-alert', resolution: 'circle-check',
+    };
+    const LABELS = {
+      system: 'System', customer: 'Customer', sla: 'SLA', agent: 'Agent',
+      diagnostic: 'Diagnostics', knowledge: 'Knowledge', escalation: 'Escalation', resolution: 'Resolution',
+    };
+
+    const EV = [
+      { id: 1, type: 'system', label: 'Case #4892 created' },
+      { id: 2, type: 'customer', label: 'Files disappearing from shared folder' },
+      { id: 3, type: 'sla', label: 'SLA clock started — 4hr target' },
+      { id: 4, type: 'agent', label: 'Tomás assigned & replies' },
+      { id: 5, type: 'diagnostic', label: 'Sync logs pulled — 14 conflicts' },
+      { id: 6, type: 'knowledge', label: 'Found KB-2891' },
+      { id: 7, type: 'diagnostic', label: 'Root cause: v3.8.2 silent failure' },
+      { id: 8, type: 'escalation', label: 'Escalated to Tier 2' },
+      { id: 9, type: 'resolution', label: '3 files recovered' },
+      { id: 10, type: 'resolution', label: 'Fix confirmed in v3.9.0' },
+    ];
+
+    const CHIP_ORDER = ['system', 'customer', 'sla', 'agent', 'diagnostic', 'knowledge', 'escalation', 'resolution'];
+
+    const CORD_X = 426;
+    const CARD_X = 462;
+    const CARD_W = 432;
+
+    // Spread layout (L0): all events evenly down the cord.
+    function spread() {
+      const pos = {};
+      const TOP = 150, ROW = 52;
+      EV.forEach((e, i) => { pos[e.id] = { y: TOP + i * ROW, active: true }; });
+      return { pos, gaps: [] };
+    }
+    // Projected layout: actives close ranks; hidden runs collapse to gaps.
+    function reflow(sel) {
+      const pos = {}, gaps = [];
+      const TOP = 176, ROW = 58, GAP = 40;
+      let cursor = TOP, i = 0;
+      while (i < EV.length) {
+        const e = EV[i];
+        if (sel.has(e.type)) { pos[e.id] = { y: cursor, active: true }; cursor += ROW; i++; }
+        else {
+          const gy = cursor; let c = 0;
+          while (i < EV.length && !sel.has(EV[i].type)) { pos[EV[i].id] = { y: gy, active: false }; c++; i++; }
+          gaps.push({ y: gy, count: c, key: 'g' + gy });
+          cursor += GAP;
+        }
+      }
+      return { pos, gaps };
+    }
+
+    const L0 = spread();
+    const L1 = reflow(new Set(['diagnostic']));
+    const L2 = reflow(new Set(['diagnostic', 'resolution']));
+
+    function blend(A, B, f) {
+      const pos = {};
+      EV.forEach((e) => {
+        const a = A.pos[e.id], b = B.pos[e.id];
+        pos[e.id] = {
+          y: lerp(a.y, b.y, f),
+          op: lerp(a.active ? 1 : 0, b.active ? 1 : 0, f),
+        };
+      });
+      const gaps = [];
+      A.gaps.forEach((g) => gaps.push({ ...g, key: 'A-' + g.key, op: 1 - f }));
+      B.gaps.forEach((g) => gaps.push({ ...g, key: 'B-' + g.key, op: f }));
+      return { pos, gaps };
+    }
+
+    function Cordline({ top, bottom, op }) {
+      return (
+        <div style={{ position: 'absolute', left: CORD_X, top, width: 2.5, height: bottom - top,
+          background: 'linear-gradient(var(--cord-700), var(--cord-500))', borderRadius: 2, opacity: op,
+          transformOrigin: 'top' }} />
+      );
+    }
+
+    function Knot({ y, color, op, scale = 1 }) {
+      return (
+        <div style={{ position: 'absolute', left: CORD_X, top: y + 20, width: 13, height: 13,
+          marginLeft: -6.5, marginTop: -6.5, borderRadius: 999, background: color,
+          border: '2.5px solid var(--surface-app)', boxShadow: '0 0 0 1.5px ' + color,
+          opacity: op, transform: `scale(${scale})` }} />
+      );
+    }
+
+    function Card({ e, y, op }) {
+      return (
+        <div style={{ position: 'absolute', left: CARD_X, top: y, width: CARD_W, opacity: op,
+          display: 'flex', alignItems: 'center', gap: 11, padding: '9px 13px', boxSizing: 'border-box',
+          background: 'var(--surface-card)', border: '1px solid var(--border-default)',
+          borderRadius: 10, boxShadow: '0 1px 3px rgba(20,40,55,0.08)' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            width: 26, height: 26, borderRadius: 6, background: colBg(e.type), color: col(e.type), flex: 'none' }}>
+            <i data-lucide={ICON[e.type]} style={{ width: 15, height: 15 }}></i>
+          </span>
+          <div style={{ minWidth: 0 }}>
+            <div style={{ fontFamily: FONT_MONO, fontSize: 11, color: col(e.type), fontWeight: 500 }}>{e.type}</div>
+            <div style={{ fontFamily: FONT_SANS, fontSize: 15, color: 'var(--text-body)', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{e.label}</div>
+          </div>
+        </div>
+      );
+    }
+
+    function Gap({ g }) {
+      if (g.op < 0.02) return null;
+      return (
+        <div style={{ position: 'absolute', left: CARD_X, top: g.y + 4, width: CARD_W, height: 26, opacity: g.op,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxSizing: 'border-box',
+          border: '1px dashed var(--border-strong)', borderRadius: 7,
+          background: 'repeating-linear-gradient(90deg, transparent 0 5px, var(--paper-100) 5px 6px)',
+          fontFamily: FONT_SANS, fontSize: 12, color: 'var(--text-muted)', fontWeight: 600 }}>
+          {g.count} hidden event{g.count === 1 ? '' : 's'}
+        </div>
+      );
+    }
+
+    function Bracket({ A, B, f, label, color }) {
+      // bounding box of active cards in layout B
+      const ys = EV.filter((e) => B.pos[e.id].active).map((e) => B.pos[e.id].y);
+      if (!ys.length) return null;
+      const top = Math.min(...ys) - 8, bot = Math.max(...ys) + 52;
+      return (
+        <div style={{ position: 'absolute', left: CARD_X - 14, top, width: CARD_W + 26, height: bot - top,
+          border: `2px solid ${color}`, borderRadius: 14, opacity: f * 0.9,
+          boxShadow: `0 0 0 5px color-mix(in srgb, ${color} 12%, transparent)`, pointerEvents: 'none' }}>
+          <div style={{ position: 'absolute', right: 16, top: -13, display: 'inline-flex', alignItems: 'center', gap: 7,
+            padding: '3px 11px', borderRadius: 999, background: color, color: '#fff',
+            fontFamily: FONT_SANS, fontSize: 12, fontWeight: 700, whiteSpace: 'nowrap', boxShadow: '0 2px 8px rgba(20,40,55,0.18)' }}>
+            <i data-lucide="layers" style={{ width: 13, height: 13 }}></i>{label}
+          </div>
+        </div>
+      );
+    }
+
+    function Chips({ t }) {
+      const diagOn = t >= 6.5, resOn = t >= 9.5;
+      const total = CHIP_ORDER.length;
+      const gapw = 8, cw = 132;
+      const startX = (1280 - (total * cw + (total - 1) * gapw)) / 2;
+      return (
+        <div style={{ position: 'absolute', left: 0, top: 64, width: '100%', height: 40 }}>
+          {CHIP_ORDER.map((ty, j) => {
+            const appear = seg(t, 4.8 + j * 0.1, 5.2 + j * 0.1, E.easeOutBack);
+            const active = (ty === 'diagnostic' && diagOn) || (ty === 'resolution' && resOn);
+            const x = startX + j * (cw + gapw);
+            return (
+              <div key={ty} style={{ position: 'absolute', left: x, top: 0, width: cw, transform: `scale(${0.7 + 0.3 * appear})`, opacity: appear,
+                display: 'inline-flex', alignItems: 'center', gap: 7, justifyContent: 'center', boxSizing: 'border-box',
+                padding: '7px 10px', borderRadius: 999,
+                background: active ? col(ty) : colBg(ty),
+                color: active ? '#fff' : col(ty),
+                border: active ? '1px solid transparent' : `1px solid color-mix(in srgb, ${col(ty)} 26%, transparent)`,
+                fontFamily: FONT_SANS, fontSize: 12.5, fontWeight: 600,
+                boxShadow: active ? '0 3px 10px color-mix(in srgb, ' + col(ty) + ' 40%, transparent)' : 'none',
+                transition: 'none' }}>
+                <i data-lucide={ICON[ty]} style={{ width: 13, height: 13 }}></i>{LABELS[ty]}
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+
+    function SkillChip({ t }) {
+      const f = seg(t, 12.5, 13.4, E.easeOutBack);
+      if (f < 0.02) return null;
+      const pulse = 0.5 + 0.5 * Math.sin((t - 13) * 3);
+      return (
+        <div style={{ position: 'absolute', left: '50%', top: 326, transform: `translate(-50%,-50%) scale(${0.8 + 0.2 * f})`, opacity: f,
+          display: 'flex', alignItems: 'center', gap: 14, padding: '18px 26px', borderRadius: 16,
+          background: 'var(--clay-600)', color: '#fff',
+          boxShadow: `0 16px 40px rgba(156,69,39,0.32), 0 0 0 ${4 + pulse * 6}px color-mix(in srgb, var(--clay-600) ${10 + pulse * 8}%, transparent)` }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 44, height: 44, borderRadius: 12, background: 'rgba(255,255,255,0.18)' }}>
+            <i data-lucide="sparkles" style={{ width: 24, height: 24 }}></i>
+          </span>
+          <div>
+            <div style={{ fontFamily: FONT_SANS, fontSize: 21, fontWeight: 800, letterSpacing: '-0.01em' }}>Diagnostics &rarr; Resolution</div>
+            <div style={{ fontFamily: FONT_SANS, fontSize: 13, opacity: 0.9, marginTop: 2 }}>Crystallised skill · invoke by click, no retyping</div>
+          </div>
+        </div>
+      );
+    }
+
+    function Scene() {
+      const t = useTime();
+      React.useEffect(() => { window.lucide && window.lucide.createIcons(); });
+
+      // global fade of the cord workspace
+      const sceneIn = seg(t, 2.0, 2.7);
+      const cryst = seg(t, 12.0, 12.7); // bundle fades out into skill
+
+      // pick layout pair + blend factor
+      let A = L0, B = L0, f = 0, bracket = null;
+      if (t < 6) { A = B = L0; f = 0; }
+      else if (t < 7.3) { A = L0; B = L1; f = seg(t, 6.0, 7.2); bracket = { lay: L1, f, label: 'Diagnostics', color: col('diagnostic') }; }
+      else if (t < 9) { A = B = L1; f = 0; bracket = { lay: L1, f: 1, label: 'Diagnostics', color: col('diagnostic') }; }
+      else if (t < 10.3) { A = L1; B = L2; f = seg(t, 9.0, 10.2); bracket = { lay: L2, f: 1, label: 'Diagnostics + Resolution', color: 'var(--cord-600)' }; }
+      else { A = B = L2; f = 0; bracket = { lay: L2, f: 1, label: 'Diagnostics + Resolution', color: 'var(--cord-600)' }; }
+
+      const cur = blend(A, B, f);
+      const workOpacity = sceneIn * (1 - cryst);
+
+      // stream-in stagger during the L0 phase
+      const streamOp = (i) => (t < 5 ? seg(t, 2.5 + i * 0.2, 3.0 + i * 0.2) : 1);
+
+      const cordTop = 150, cordBottom = t < 6 ? 632 : 520;
+
+      return (
+        <div style={{ position: 'absolute', inset: 0, fontFamily: FONT_SANS }}>
+          {/* intro */}
+          <Sprite start={0} end={2.4}>
+            <IntroCard />
+          </Sprite>
+
+          {/* workspace */}
+          <div style={{ opacity: workOpacity }}>
+            <Chips t={t} />
+            <Cordline top={cordTop} bottom={cordBottom} op={1} />
+            {bracket ? <Bracket A={A} B={B} f={bracket.f} label={bracket.label} color={bracket.color} /> : null}
+            {EV.map((e, i) => {
+              const p = cur.pos[e.id];
+              const op = p.op * (t < 5 ? streamOp(i) : 1);
+              return (
+                <React.Fragment key={e.id}>
+                  <Knot y={p.y} color={col(e.type)} op={Math.max(op, p.op * 0.25)} />
+                  <Card e={e} y={p.y} op={op} />
+                </React.Fragment>
+              );
+            })}
+            {cur.gaps.map((g) => <Gap key={g.key} g={g} />)}
+          </div>
+
+          {/* crystallised skill */}
+          <SkillChip t={t} />
+
+          {/* captions */}
+          <Caption start={2.5} end={4.7} text="The primary cord — every event, in sequence" />
+          <Caption start={4.8} end={5.95} text="Pendant cords emerge from what has happened" />
+          <Caption start={6.0} end={8.95} text="Choose a category — the cord projects, gaps and all" />
+          <Caption start={9.0} end={11.95} text="Compose categories — a cross-type narrative bundles together" />
+          <Caption start={12.0} end={15.9} text="A recurring view crystallises into a clickable skill" />
+        </div>
+      );
+    }
+
+    function IntroCard() {
+      const { progress } = window.useSprite();
+      const op = progress < 0.8 ? clamp(progress / 0.25, 0, 1) : clamp((1 - progress) / 0.2, 0, 1);
+      return (
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, opacity: op }}>
+          <img src="../assets/quipu-mark.svg" width="78" alt="" />
+          <div style={{ fontFamily: FONT_SERIF, fontSize: 62, fontWeight: 600, color: 'var(--ink-900)', letterSpacing: '-0.02em' }}>Quipu</div>
+          <div style={{ fontFamily: FONT_SANS, fontSize: 21, color: 'var(--text-muted)', fontWeight: 500 }}>One cord. Read many ways.</div>
+        </div>
+      );
+    }
+
+    function Caption({ start, end, text }) {
+      return (
+        <Sprite start={start} end={end}>
+          {({ localTime, duration }) => {
+            const op = Math.min(seg(localTime, 0, 0.4), seg(duration - localTime, 0, 0.4));
+            return (
+              <div style={{ position: 'absolute', left: 0, right: 0, bottom: 54, textAlign: 'center', opacity: op }}>
+                <span style={{ fontFamily: FONT_SERIF, fontStyle: 'italic', fontSize: 27, color: 'var(--ink-800)', fontWeight: 500 }}>{text}</span>
+              </div>
+            );
+          }}
+        </Sprite>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(
+      <Stage width={1280} height={720} duration={16} background="var(--surface-app)" persistKey="quipu-bundle">
+        <Scene />
+      </Stage>
+    );
+  </script>
+</body>
+</html>

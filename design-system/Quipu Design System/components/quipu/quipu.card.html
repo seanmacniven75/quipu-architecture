@@ -1,0 +1,87 @@
+<!-- @dsCard group="Components" viewport="700x540" name="Quipu — Pendant cords, Events, Gaps, Cord" subtitle="The signature timeline primitives" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  body { margin: 0; background: var(--surface-app); font-family: var(--font-sans); color: var(--text-body); }
+  .wrap { padding: 22px 24px; display: flex; flex-direction: column; gap: 18px; }
+  .group { display: flex; flex-direction: column; gap: 9px; }
+  .lbl { font-family: var(--font-mono); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: var(--text-faint); }
+  .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .lucide { width: 14px; height: 14px; }
+</style>
+</head>
+<body>
+  <div id="root" class="wrap"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script src="../../_ds_bundle.js"></script>
+
+  <script type="text/babel">
+    const { PendantCord, EventCard, GapIndicator, Cord } = window.QuipuDesignSystem_9d1632;
+    const I = (n) => <i data-lucide={n}></i>;
+    const ICON = {
+      system: 'settings-2', customer: 'message-circle', agent: 'headphones',
+      internal: 'lock', escalation: 'triangle-alert', knowledge: 'book-open',
+      diagnostic: 'wrench', sla: 'timer', resolution: 'circle-check',
+    };
+
+    function Demo() {
+      React.useEffect(() => { window.lucide && window.lucide.createIcons(); });
+      const [active, setActive] = React.useState('diagnostic');
+      const cords = [
+        ['system','System',3], ['customer','Customer',6], ['agent','Agent',9],
+        ['diagnostic','Diagnostics',4], ['escalation','Escalation',1], ['resolution','Resolution',2],
+      ];
+      return (
+        <>
+          <div className="group">
+            <span className="lbl">Pendant cords — dynamic filters (click to toggle)</span>
+            <div className="row">
+              {cords.map(([t,l,c]) => (
+                <PendantCord key={t} type={t} label={l} count={c} icon={I(ICON[t])}
+                  active={active===t} onClick={() => setActive(active===t?null:t)} />
+              ))}
+            </div>
+          </div>
+          <div className="group">
+            <span className="lbl">Saved narrative · newly-discovered (pops in)</span>
+            <div className="row">
+              <PendantCord variant="narrative" type="customer" label="Customer handoff story" icon={I('bookmark')} />
+              <PendantCord type="knowledge" label="Knowledge" count={1} icon={I(ICON.knowledge)} isNew />
+            </div>
+          </div>
+          <div className="group">
+            <span className="lbl">Event cards (knots)</span>
+            <EventCard seq={7} type="diagnostic" typeLabel="Diagnostics" icon={I('wrench')}
+              summary="Pulled sync logs for the Marketing folder — 14 conflict events in 7 days, all concurrent .pptx edits."
+              actor="Tomás Rivera" initiatedBy="agent" timestamp="10:32"
+              entityRefs={["diagnostic:sync_log_4892"]} subsidiaryCount={1} />
+            <EventCard seq={13} type="escalation" typeLabel="Escalation" icon={I('triangle-alert')}
+              summary="Escalated to Tier 2 (Data Recovery) — customer requesting file recovery, requires backend access."
+              actor="Tomás Rivera" initiatedBy="user" timestamp="10:48" />
+          </div>
+          <div className="group">
+            <span className="lbl">Gap indicator · primary cord (projection with a gap)</span>
+            <GapIndicator count={4} from="10:33" to="10:47" onClick={() => {}} />
+            <div style={{marginTop: 4}}>
+              <Cord items={[
+                { seq:2, type:'customer', typeLabel:'Customer', icon:I('message-circle'), summary:'Files are disappearing from our shared Marketing folder.', actor:'Maria Chen', initiatedBy:'user', timestamp:'09:02' },
+                { gap:true, count:3, from:'09:03', to:'09:19' },
+                { seq:7, type:'diagnostic', typeLabel:'Diagnostics', icon:I('wrench'), summary:'Sync logs pulled — root cause traced to v3.8.2 silent failure.', actor:'Tomás', initiatedBy:'agent', timestamp:'09:21' },
+                { seq:22, type:'resolution', typeLabel:'Resolution', icon:I('circle-check'), summary:'Interim fix: server-side file locking enabled; 3 files recovered.', actor:'Priya', initiatedBy:'agent', timestamp:'12:40', isMeta:true },
+              ]} onGapClick={() => {}} />
+            </div>
+          </div>
+        </>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+  </script>
+</body>
+</html>

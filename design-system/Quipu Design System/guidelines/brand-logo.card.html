@@ -1,0 +1,30 @@
+<!-- @dsCard group="Brand" viewport="700x220" name="Logo & wordmark" subtitle="The knotted-cord mark: a primary cord with pendant knots" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--surface-card); font-family: var(--font-sans); }
+  .wrap { padding: 26px; display: flex; flex-direction: column; gap: 18px; }
+  .row { display: flex; align-items: center; gap: 28px; }
+  .tile { display: flex; align-items: center; justify-content: center; padding: 18px 22px; border-radius: var(--radius-lg); border: 1px solid var(--border-default); }
+  .dark { background: var(--ink-900); border-color: var(--ink-800); }
+  .cap { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); margin-top: 8px; }
+  .col { display: flex; flex-direction: column; align-items: flex-start; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="row">
+      <div class="col"><div class="tile"><img src="../assets/quipu-wordmark.svg" height="40" alt="Quipu" /></div><span class="cap">lockup · light</span></div>
+      <div class="col"><div class="tile dark"><img src="../assets/quipu-mark.svg" width="44" alt="Quipu mark" /></div><span class="cap">mark · dark</span></div>
+    </div>
+    <div class="row">
+      <div class="col"><div class="tile" style="background:var(--cord-50)"><img src="../assets/quipu-mark.svg" width="36" alt="" /></div><span class="cap">mark · tint</span></div>
+      <div class="col"><div class="tile" style="background:var(--surface-card)"><img src="../assets/quipu-mark.svg" width="28" alt="" /></div><span class="cap">favicon · 28px min</span></div>
+      <div style="max-width:30ch; font-size:var(--text-xs); color:var(--text-muted); line-height:var(--leading-normal);">The mark abstracts an Incan <em>quipu</em>: a horizontal primary cord with pendant cords hanging from it, each bearing knots. One knot is clay — the crystallised skill.</div>
+    </div>
+  </div>
+</body>
+</html>
